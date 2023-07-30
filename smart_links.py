@@ -68,8 +68,8 @@ def parse_links(entry, all_generators):
     doc = BeautifulSoup(entry._content, features='lxml')
     links = doc.findAll('a')
     for l in links:
-        # A link that does NOT start with http(s) or with / is a link we're gonna inspect
-        if re.search(r'(https?://)|^/', l.attrs['href']) == None:
+        # A link that does NOT start with http(s) or with [/#] is a link we're gonna inspect
+        if re.search(r'(https?://)|^[/#]', l.attrs['href']) == None:
             best_match = get_best_match(l.attrs['href'], all_generators, entry.slug)
             if best_match != False:
                 rewrite_link(entry, l, best_match)
